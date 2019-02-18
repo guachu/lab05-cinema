@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import jdk.nashorn.internal.objects.NativeArray;
+import sun.security.pkcs11.wrapper.Functions;
 
 /**
  *
@@ -40,13 +42,27 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
     public void buyTicket(int row, int col, String cinema, String date, String movieName) throws CinemaException {
         Cinema cine = cinemas.get(cinema);
         List<CinemaFunction> funciones = cine.getFunctions();
+        for(CinemaFunction i : funciones){
+            if (i.getDate().equals(date) && i.getMovie().equals(movieName)){
+                i.buyTicket(row, col);
+            }
+        }
+        
         
         
     }
 
     @Override
     public List<CinemaFunction> getFunctionsbyCinemaAndDate(String cinema, String date) {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        Cinema cine = cinemas.get(cinema);
+        List<CinemaFunction> listaN= new ArrayList<>();
+        List<CinemaFunction> funciones = cine.getFunctions();
+        for(CinemaFunction i : funciones){
+            if (i.getDate().equals(date)){
+                listaN.add(i);
+            }
+        }
+        return listaN;
     }
 
     @Override

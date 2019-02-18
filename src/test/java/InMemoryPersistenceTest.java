@@ -2,6 +2,7 @@
 import edu.eci.arsw.cinema.model.Cinema;
 import edu.eci.arsw.cinema.model.CinemaFunction;
 import edu.eci.arsw.cinema.model.Movie;
+import edu.eci.arsw.cinema.persistence.CinemaException;
 import edu.eci.arsw.cinema.persistence.CinemaPersistenceException;
 import edu.eci.arsw.cinema.persistence.impl.InMemoryCinemaPersistence;
 import java.util.ArrayList;
@@ -75,4 +76,32 @@ public class InMemoryPersistenceTest {
                 
         
     }
+    
+    @Test
+    public void BuyTicketTest() {
+        InMemoryCinemaPersistence ipct=new InMemoryCinemaPersistence();
+        
+        String functionDate = "2018-12-18 15:30";
+        List<CinemaFunction> functions= new ArrayList<>();
+        CinemaFunction funct1 = new CinemaFunction(new Movie("SuperHeroes Movie 2","Action"),functionDate);
+        CinemaFunction funct2 = new CinemaFunction(new Movie("The Night 2","Horror"),functionDate);
+        functions.add(funct1);
+        functions.add(funct2);
+        Cinema c=new Cinema("Movies Bogotá",functions);
+        
+        try {
+            ipct.saveCinema(c);
+        } catch (CinemaPersistenceException ex) {
+            fail("Cinema persistence failed inserting the first cinema.");
+        }
+        
+        try {
+            ipct.buyTicket(0, 0, "Movies Bogotá", functionDate,"SuperHeroes Movie 2");
+            
+        } catch (CinemaException e) {
+            
+        }
+        
+    }
+    
 }

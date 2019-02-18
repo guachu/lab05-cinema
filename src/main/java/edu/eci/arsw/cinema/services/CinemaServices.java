@@ -11,6 +11,7 @@ import edu.eci.arsw.cinema.persistence.CinemaException;
 import edu.eci.arsw.cinema.persistence.CinemaPersistenceException;
 import edu.eci.arsw.cinema.persistence.CinemaPersitence;
 import edu.eci.arsw.cinema.persistence.impl.InMemoryCinemaPersistence;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +63,9 @@ public class CinemaServices {
     }
     
     public List<CinemaFunction> getFunctionsbyCinemaAndDate(String cinema, String date) {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        List<CinemaFunction> listaN= new ArrayList<>();
+        listaN = cps.getFunctionsbyCinemaAndDate(cinema, date);
+        return listaN;
     }
 
 
