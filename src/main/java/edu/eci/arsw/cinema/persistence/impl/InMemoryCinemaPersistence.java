@@ -16,12 +16,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import jdk.nashorn.internal.objects.NativeArray;
+import org.springframework.stereotype.Service;
 import sun.security.pkcs11.wrapper.Functions;
 
 /**
  *
  * @author cristian
  */
+
+@Service
 public class InMemoryCinemaPersistence implements CinemaPersitence{
     
     private final Map<String,Cinema> cinemas=new HashMap<>();
@@ -43,13 +46,11 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
         Cinema cine = cinemas.get(cinema);
         List<CinemaFunction> funciones = cine.getFunctions();
         for(CinemaFunction i : funciones){
-            if (i.getDate().equals(date) && i.getMovie().equals(movieName)){
+            if (i.getDate().equals(date) && i.getMovie().getName().equals(movieName)){
                 i.buyTicket(row, col);
             }
         }
-        
-        
-        
+
     }
 
     @Override
@@ -79,5 +80,18 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
     public Cinema getCinema(String name) throws CinemaPersistenceException {
         return cinemas.get(name);
     }
+
+    @Override
+    public Map<String, Cinema> getCinemas() {
+        return cinemas;
+    }
+
+    @Override
+    public List<CinemaFunction> getFunctionsbyCinema(String cinema) {
+        Cinema cine = cinemas.get(cinema);
+        return cine.getFunctions();
+    }
+    
+    
 
 }

@@ -8,5 +8,5 @@
 ">
 
     <context:component-scan base-package="edu.eci.arsw" />
-	<bean id = "sc" class = "edu.eci.arsw.cinema.persistence.impl.InMemoryCinemaPersistence" />
+	<bean id = "cps" class = "edu.eci.arsw.cinema.persistence.impl.InMemoryCinemaPersistence" />
 </beans>

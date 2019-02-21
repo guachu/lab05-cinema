@@ -13,13 +13,17 @@ import edu.eci.arsw.cinema.persistence.CinemaPersitence;
 import edu.eci.arsw.cinema.persistence.impl.InMemoryCinemaPersistence;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author cristian
  */
+
+@Service
 public class CinemaServices {
     
     @Autowired
@@ -27,12 +31,12 @@ public class CinemaServices {
     
     
     
-    public void addNewCinema(Cinema c){
-        
+    public void addNewCinema(Cinema c) throws CinemaPersistenceException{
+        cps.saveCinema(c);
     }
     
-    public Set<Cinema> getAllCinemas(){
-        return null;
+    public Map<String,Cinema> getAllCinemas(){
+        return cps.getCinemas();
     }
     
     /**
@@ -47,7 +51,7 @@ public class CinemaServices {
             return cinemaN;
         }
         catch(CinemaPersistenceException e){
-            return null;
+            throw new CinemaException("No se a podido encontrar esta pelicula");
         } 
     }
     
@@ -57,7 +61,7 @@ public class CinemaServices {
             cps.buyTicket(row, col, cinema, date, movieName);
         }
         catch(CinemaException e){
-            
+            throw new CinemaException("No se a podido comprar este ticket");
         }
         
     }
@@ -68,5 +72,11 @@ public class CinemaServices {
         return listaN;
     }
 
+    public List<CinemaFunction> getFunctionsbyCinema(String cinema) {
+        List<CinemaFunction> listaN= new ArrayList<>();
+        listaN = cps.getFunctionsbyCinema(cinema);
+        return listaN;
+    }
+    
 
 }

@@ -8,6 +8,7 @@ package edu.eci.arsw.cinema.persistence;
 import edu.eci.arsw.cinema.model.Cinema;
 import edu.eci.arsw.cinema.model.CinemaFunction;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -51,4 +52,8 @@ public interface CinemaPersitence {
      */
     public Cinema getCinema(String name) throws CinemaPersistenceException;
     
+    
+    public Map<String,Cinema> getCinemas();
+    
+    public List<CinemaFunction> getFunctionsbyCinema(String cinema);
 }

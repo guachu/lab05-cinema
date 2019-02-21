@@ -89,19 +89,67 @@ public class InMemoryPersistenceTest {
         functions.add(funct2);
         Cinema c=new Cinema("Movies Bogotá",functions);
         
-        try {
+        try { 
             ipct.saveCinema(c);
         } catch (CinemaPersistenceException ex) {
-            fail("Cinema persistence failed inserting the first cinema.");
+            
         }
         
         try {
             ipct.buyTicket(0, 0, "Movies Bogotá", functionDate,"SuperHeroes Movie 2");
             
         } catch (CinemaException e) {
+            fail("No se pudo comprar este ticket");
+        }
+        
+        try {
+            ipct.buyTicket(0, 0, "Movies Bogotá", functionDate,"SuperHeroes Movie 2");
+            fail("No se pudo comprar este ticket por que el puesto ya esta tomado");
+        } catch (CinemaException e) {
+           
+        }  
+    }
+    
+    @Test
+    public void GetFuncionByCinemaAndDateTest() {
+        InMemoryCinemaPersistence ipct=new InMemoryCinemaPersistence();
+        
+        String functionDate = "2018-12-18 15:30";
+        List<CinemaFunction> functions= new ArrayList<>();
+        CinemaFunction funct1 = new CinemaFunction(new Movie("SuperHeroes Movie 2","Action"),functionDate);
+        CinemaFunction funct2 = new CinemaFunction(new Movie("The Night 2","Horror"),functionDate);
+        functions.add(funct1);
+        functions.add(funct2);
+        Cinema c=new Cinema("Movies Bogotá",functions);
+        
+        try { 
+            ipct.saveCinema(c);
+        } catch (CinemaPersistenceException ex) {
             
         }
         
+        assertEquals(funct1, ipct.getFunctionsbyCinemaAndDate("Movies Bogotá", "2018-12-18 15:30").get(0));
+    }
+    
+    @Test
+    public void GetCinemaByNameTest() throws CinemaPersistenceException{
+        InMemoryCinemaPersistence ipct=new InMemoryCinemaPersistence();
+        
+        String functionDate = "2018-12-18 15:30";
+        List<CinemaFunction> functions= new ArrayList<>();
+        CinemaFunction funct1 = new CinemaFunction(new Movie("SuperHeroes Movie 2","Action"),functionDate);
+        CinemaFunction funct2 = new CinemaFunction(new Movie("The Night 2","Horror"),functionDate);
+        functions.add(funct1);
+        functions.add(funct2);
+        Cinema c=new Cinema("Movies Bogotá",functions);
+        
+        try { 
+            ipct.saveCinema(c);
+        } catch (CinemaPersistenceException ex) {
+            
+        }
+        
+        assertNotNull(ipct.getCinema(c.getName()));
     }
     
 }
