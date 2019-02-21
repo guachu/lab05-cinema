@@ -7,6 +7,8 @@ package edu.eci.arsw.cinema.Filters.impl;
 
 import edu.eci.arsw.cinema.Filters.FiltrosPersitence;
 import edu.eci.arsw.cinema.model.Cinema;
+import edu.eci.arsw.cinema.model.CinemaFunction;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,7 +20,14 @@ public class FiltroSillasPersistence implements FiltrosPersitence{
 
     @Override
     public List<Cinema> FiltredBy(Cinema cine, String date, String filtro) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int valorSillas = Integer.decode(filtro);
+        List<Cinema> cinesAceptados = new ArrayList<Cinema>();
+        List<CinemaFunction> listaFunciones = cine.getFunctions();
+        for(CinemaFunction i : listaFunciones){
+//            if(i.){
+//                
+//            }
+        }
     }
     
 }
