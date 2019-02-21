@@ -5,10 +5,15 @@
  */
 package edu.eci.arsw.cinema.Filters;
 
+import edu.eci.arsw.cinema.model.Cinema;
+import java.util.List;
+
 /**
  *
  * @author jfmor
  */
 public interface FiltrosPersitence {
+    
+    public List<Cinema> FiltredBy(Cinema cine, String date, String filtro);
     
 }
